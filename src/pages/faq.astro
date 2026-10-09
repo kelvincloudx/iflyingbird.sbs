@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import FaqSection from '../components/FaqSection.astro';
+import { AFFILIATE_URL } from '../data/plans';
+---
+
+<Layout 
+  title="FlyingBird 常见问题解答 FAQ｜套餐流量与网络连接疑问全解"
+  description="包含FlyingBird月度流量重置、300GB与1000GB一次性流量包区别、节点延迟测试及掉线排查等10大核心常见问题解答。"
+  canonicalPath="/faq/"
+>
+  <div class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: '常见问题 FAQ' }]} />
+      <h1>FlyingBird 常见问题解答 (FAQ)</h1>
+      <p>
+        深入回答关于 300GB 月付方案、一次性流量包有效期、网络断连原因及客户端权限的常见疑问。
+      </p>
+    </div>
+  </div>
+
+  <section class="faq-page-content">
+    <div class="container">
+      <FaqSection showTitle={false} />
+
+      <div class="faq-cta-banner skyline-card text-center">
+        <h3>没有找到您关心的解答？</h3>
+        <p>直接登录 FlyingBird 官方控制台，获取完整的服务指导或开通订阅方案。</p>
+        <a href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" class="btn btn-commercial mt-3">
+          前往购买与获取方案
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .mt-3 {
+    margin-top: 1rem;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .faq-page-content {
+    padding: 3rem 0 5rem 0;
+    background-color: var(--color-dawn-white);
+  }
+
+  .faq-cta-banner {
+    max-width: 900px;
+    margin: 4rem auto 0 auto;
+    padding: 3rem;
+    background: var(--skyline-card-gradient);
+    border: 1px solid rgba(132, 91, 157, 0.2);
+  }
+
+  .faq-cta-banner h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-cta-banner p {
+    color: #718096;
+    font-size: 1rem;
+  }
+</style>

@@ -1,0 +1,93 @@
+---
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+const siteUrl = 'https://iflyingbird.sbs';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  'itemListElement': [
+    {
+      '@type': 'ListItem',
+      'position': 1,
+      'name': '首页',
+      'item': `${siteUrl}/`
+    },
+    ...items.map((item, index) => ({
+      '@type': 'ListItem',
+      'position': index + 2,
+      'name': item.label,
+      'item': item.href ? `${siteUrl}${item.href}` : undefined
+    }))
+  ]
+};
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/">首页</a>
+    </li>
+    {items.map((item, index) => (
+      <li class="breadcrumb-item">
+        <span class="separator">/</span>
+        {item.href && index < items.length - 1 ? (
+          <a href={item.href}>{item.label}</a>
+        ) : (
+          <span class="current" aria-current="page">{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+<style>
+  .breadcrumbs {
+    padding: 0.75rem 0;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #718096;
+  }
+
+  .breadcrumb-item a {
+    color: #4A5568;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb-item a:hover {
+    color: var(--color-twilight-purple);
+  }
+
+  .separator {
+    color: #A0AEC0;
+  }
+
+  .current {
+    color: var(--color-deep-indigo);
+    font-weight: 600;
+  }
+</style>

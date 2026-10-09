@@ -1,0 +1,396 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { stories, Story } from '../../data/stories';
+import { AFFILIATE_URL } from '../../data/plans';
+
+export function getStaticPaths() {
+  return stories.map((story) => ({
+    params: { slug: story.slug },
+    props: { story }
+  }));
+}
+
+interface Props {
+  story: Story;
+}
+
+const { story } = Astro.props;
+
+// Filter recommended related stories (excluding current)
+const relatedStories = stories.filter(s => s.slug !== story.slug).slice(0, 2);
+
+const siteUrl = 'https://iflyingbird.sbs';
+const articleCanonical = `/stories/${story.slug}/`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  'headline': story.title,
+  'description': story.metaDescription,
+  'datePublished': story.publishDate,
+  'author': {
+    '@type': 'Organization',
+    'name': story.author
+  },
+  'publisher': {
+    '@type': 'Organization',
+    'name': 'FlyingBird 飞鸟机场',
+    'url': siteUrl
+  },
+  'mainEntityOfPage': {
+    '@type': 'WebPage',
+    '@id': `${siteUrl}${articleCanonical}`
+  }
+};
+---
+
+<Layout 
+  title={story.metaTitle}
+  description={story.metaDescription}
+  canonicalPath={articleCanonical}
+  ogType="article"
+  jsonLd={articleSchema}
+>
+  <div class="article-hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={[
+        { label: '文章目录', href: '/stories/' },
+        { label: story.title }
+      ]} />
+      <div class="article-meta-bar">
+        <span class="badge badge-purple">{story.category}</span>
+        <time datetime={story.publishDate}>发布日期：{story.publishDate}</time>
+        <span>作者：{story.author}</span>
+        <span>预计阅读：{story.readTime}</span>
+      </div>
+      <h1 class="article-h1">{story.title}</h1>
+      <p class="article-summary-lead">{story.summary}</p>
+    </div>
+  </div>
+
+  <div class="article-layout container">
+    <main class="article-body-main">
+      <!-- Article Table of Contents -->
+      <nav class="article-toc skyline-card">
+        <h2 class="toc-title">目录导航</h2>
+        <ul>
+          {story.sections.map((sec, i) => (
+            <li>
+              <a href={`#sec-${i+1}`}>{sec.heading}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Article Main Sections -->
+      <div class="article-content">
+        {story.sections.map((sec, i) => (
+          <section class="content-section-block" id={`sec-${i+1}`}>
+            {sec.level === 'h2' ? (
+              <h2 class="section-h2">{sec.heading}</h2>
+            ) : (
+              <h3 class="section-h3">{sec.heading}</h3>
+            )}
+
+            {sec.content.map((paragraph) => (
+              <p class="paragraph-text" set:html={paragraph} />
+            ))}
+          </section>
+        ))}
+      </div>
+
+      <!-- Commercial CTA in Article -->
+      <div class="article-commercial-box skyline-card">
+        <div class="box-inner">
+          <h3>开通 FlyingBird 高速加速通道</h3>
+          <p>提供¥15/月300GB月付方案与¥25起不限时流量包，全节点覆盖与 1000M 带宽支持。</p>
+          <div class="box-actions mt-3">
+            <a href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" class="btn btn-commercial">
+              前往购买页面
+            </a>
+            <a href="/plans/" class="btn btn-outline">
+              查看套餐选型
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back to Stories Index Button -->
+      <div class="back-to-index">
+        <a href="/stories/" class="btn btn-secondary">
+          &larr; 返回文章目录
+        </a>
+      </div>
+    </main>
+
+    <!-- Sidebar with Related Articles -->
+    <aside class="article-sidebar">
+      <div class="sidebar-widget skyline-card">
+        <h3 class="widget-title">推荐阅读文章</h3>
+        <div class="related-list">
+          {relatedStories.map((rel) => (
+            <div class="related-item">
+              <span class="rel-cat">{rel.category}</span>
+              <h4 class="rel-title">
+                <a href={`/stories/${rel.slug}/`}>{rel.title}</a>
+              </h4>
+              <a href={`/stories/${rel.slug}/`} class="rel-link">阅读文章 &rarr;</a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="sidebar-widget skyline-card widget-sticky">
+        <h3 class="widget-title">快捷站内导航</h3>
+        <ul class="widget-links">
+          <li><a href="/">首页</a></li>
+          <li><a href="/plans/">全部套餐价格</a></li>
+          <li><a href="/guide/">全流程使用指南</a></li>
+          <li><a href="/devices/">多平台客户端帮助</a></li>
+          <li><a href="/network/">节点网络知识</a></li>
+          <li><a href="/faq/">常见问题 FAQ</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</Layout>
+
+<style>
+  .mt-3 { margin-top: 1rem; }
+
+  .article-hero {
+    padding: 3.5rem 0 2.5rem 0;
+  }
+
+  .article-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    font-size: 0.875rem;
+    color: #718096;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .article-h1 {
+    font-size: 2.25rem;
+    line-height: 1.3;
+    margin-bottom: 1.25rem;
+    color: var(--color-deep-indigo);
+  }
+
+  .article-summary-lead {
+    font-size: 1.1rem;
+    color: #4A5568;
+    line-height: 1.65;
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--color-sunset-orange);
+  }
+
+  /* Article Layout */
+  .article-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 3rem;
+    padding: 3.5rem 1.5rem;
+  }
+
+  .article-body-main {
+    min-width: 0;
+  }
+
+  /* TOC */
+  .article-toc {
+    margin-bottom: 3rem;
+    background: #ffffff;
+    border-left: 4px solid var(--color-twilight-purple);
+    padding: 1.5rem 1.75rem;
+  }
+
+  .toc-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.85rem;
+    color: var(--color-deep-indigo);
+  }
+
+  .article-toc ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .article-toc a {
+    font-size: 0.95rem;
+    color: #4A5568;
+    transition: color 0.2s;
+  }
+
+  .article-toc a:hover {
+    color: var(--color-twilight-purple);
+  }
+
+  /* Article content */
+  .article-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #2D3748;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-h2 {
+    font-size: 1.6rem;
+    color: var(--color-deep-indigo);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(37, 51, 74, 0.1);
+  }
+
+  .section-h3 {
+    font-size: 1.3rem;
+    color: var(--color-deep-indigo);
+    margin-bottom: 1rem;
+  }
+
+  .paragraph-text {
+    margin-bottom: 1.15rem;
+    line-height: 1.85;
+  }
+
+  .paragraph-text :global(a) {
+    color: var(--color-twilight-purple);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .paragraph-text :global(a:hover) {
+    color: var(--color-sunset-orange);
+  }
+
+  /* Commercial Box */
+  .article-commercial-box {
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #ffffff 0%, #F8F6F0 100%);
+    border: 1px solid rgba(132, 91, 157, 0.25);
+    padding: 2rem;
+  }
+
+  .article-commercial-box h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .article-commercial-box p {
+    color: #718096;
+    font-size: 0.95rem;
+  }
+
+  .box-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .back-to-index {
+    margin-top: 2rem;
+  }
+
+  /* Sidebar */
+  .article-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .sidebar-widget {
+    padding: 1.5rem;
+  }
+
+  .widget-sticky {
+    position: sticky;
+    top: calc(var(--header-height) + 1.5rem);
+  }
+
+  .widget-title {
+    font-size: 1.15rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(37, 51, 74, 0.08);
+  }
+
+  .related-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .related-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .rel-cat {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-sunset-orange);
+  }
+
+  .rel-title {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .rel-title a {
+    color: var(--color-deep-indigo);
+  }
+
+  .rel-title a:hover {
+    color: var(--color-twilight-purple);
+  }
+
+  .rel-link {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-twilight-purple);
+  }
+
+  .widget-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .widget-links a {
+    font-size: 0.925rem;
+    color: #4A5568;
+    transition: color 0.2s;
+  }
+
+  .widget-links a:hover {
+    color: var(--color-twilight-purple);
+  }
+
+  @media (max-width: 900px) {
+    .article-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .article-sidebar {
+      order: 1;
+    }
+
+    .article-h1 {
+      font-size: 1.75rem;
+    }
+  }
+</style>

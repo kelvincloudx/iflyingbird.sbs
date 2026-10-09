@@ -1,0 +1,187 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { stories } from '../../data/stories';
+import { AFFILIATE_URL } from '../../data/plans';
+---
+
+<Layout 
+  title="FlyingBird 技术文章与使用指南专栏｜FlyingBird 飞鸟机场"
+  description="浏览FlyingBird官方专栏收录的7篇深度原创技术文章，涵盖月度流量重置、一次性流量包对比、会话保持与网络排查全指南。"
+  canonicalPath="/stories/"
+>
+  <div class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: '文章目录' }]} />
+      <h1>FlyingBird 深度技术文章专栏</h1>
+      <p>
+        收录 7 篇完全原创的深度解析指南，解答套餐逻辑、网络底层连续性、设备权限与安全管理全方位知识。
+      </p>
+    </div>
+  </div>
+
+  <section class="stories-index-section">
+    <div class="container">
+      <div class="stories-full-grid">
+        {stories.map((story, index) => (
+          <article class="story-index-card skyline-card">
+            <div class="card-num">0{index + 1}</div>
+            <div class="card-content">
+              <div class="card-meta">
+                <span class="cat-pill">{story.category}</span>
+                <time datetime={story.publishDate}>{story.publishDate}</time>
+                <span class="author-tag">作者：{story.author}</span>
+              </div>
+              <h2 class="card-title">
+                <a href={`/stories/${story.slug}/`}>{story.title}</a>
+              </h2>
+              <p class="card-summary">{story.summary}</p>
+              <div class="card-footer">
+                <span class="time-text">阅读预计：{story.readTime}</span>
+                <a href={`/stories/${story.slug}/`} class="btn btn-secondary btn-sm">
+                  阅读全文 &rarr;
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="stories-cta-banner skyline-card text-center">
+        <h3>想要获取 FlyingBird 高速网络服务？</h3>
+        <p>探索我们的月付套餐与一次性流量包选型。</p>
+        <div class="banner-btns mt-3">
+          <a href="/plans/" class="btn btn-outline">
+            查看全部套餐价格
+          </a>
+          <a href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" class="btn btn-commercial">
+            前往注册与订阅
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .mt-3 { margin-top: 1rem; }
+  .text-center { text-align: center; }
+
+  .stories-index-section {
+    padding: 4rem 0;
+    background-color: var(--color-dawn-white);
+  }
+
+  .stories-full-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 960px;
+    margin: 0 auto 4rem auto;
+  }
+
+  .story-index-card {
+    display: flex;
+    gap: 2rem;
+    padding: 2.25rem;
+    align-items: flex-start;
+  }
+
+  .card-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-twilight-purple);
+    background: rgba(132, 91, 157, 0.1);
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-content {
+    flex: 1;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.825rem;
+    color: #718096;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .cat-pill {
+    background: rgba(232, 138, 102, 0.15);
+    color: var(--color-sunset-orange);
+    font-weight: 700;
+    padding: 0.15rem 0.55rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .card-title {
+    font-size: 1.35rem;
+    margin-bottom: 0.85rem;
+    line-height: 1.35;
+  }
+
+  .card-title a {
+    color: var(--color-deep-indigo);
+  }
+
+  .card-title a:hover {
+    color: var(--color-sunset-orange);
+  }
+
+  .card-summary {
+    font-size: 0.95rem;
+    color: #4A5568;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(37, 51, 74, 0.08);
+    padding-top: 1rem;
+  }
+
+  .time-text {
+    font-size: 0.85rem;
+    color: #718096;
+  }
+
+  .btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .stories-cta-banner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem;
+    background: var(--skyline-card-gradient);
+    border: 1px solid rgba(132, 91, 157, 0.2);
+  }
+
+  .banner-btns {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 640px) {
+    .story-index-card {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+  }
+</style>

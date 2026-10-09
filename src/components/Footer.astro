@@ -1,0 +1,155 @@
+---
+import { AFFILIATE_URL } from '../data/plans';
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-grid">
+      <!-- Brand column -->
+      <div class="footer-col footer-brand">
+        <a href="/" class="footer-logo">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 18C10 10 20 6 32 8C26 16 20 28 8 28C6 24 4 20 4 18Z" fill="url(#footer-sky-grad)"/>
+            <defs>
+              <linearGradient id="footer-sky-grad" x1="4" y1="8" x2="32" y2="28" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#E88A66"/>
+                <stop offset="1" stop-color="#845B9D"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span>FlyingBird 飞鸟机场</span>
+        </a>
+        <p class="brand-desc">
+          FlyingBird 专注于提供高品质的跨国网络加速与订阅服务，致力于为您带来轻盈、稳定的数字旅程体验。
+        </p>
+      </div>
+
+      <!-- Links column 1 -->
+      <div class="footer-col">
+        <h4 class="footer-heading">快速导航</h4>
+        <ul class="footer-links">
+          <li><a href="/">首页</a></li>
+          <li><a href="/plans/">套餐方案</a></li>
+          <li><a href="/guide/">使用指南</a></li>
+          <li><a href="/devices/">客户端帮助</a></li>
+        </ul>
+      </div>
+
+      <!-- Links column 2 -->
+      <div class="footer-col">
+        <h4 class="footer-heading">知识与支持</h4>
+        <ul class="footer-links">
+          <li><a href="/network/">网络知识</a></li>
+          <li><a href="/stories/">文章目录</a></li>
+          <li><a href="/faq/">常见问题 FAQ</a></li>
+          <li><a href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener">开通服务</a></li>
+        </ul>
+      </div>
+
+      <!-- Commercial Disclosure column -->
+      <div class="footer-col">
+        <h4 class="footer-heading">服务声明</h4>
+        <p class="disclosure-text">
+          本站为 FlyingBird 飞鸟机场单品牌官网落地页。页面所列套餐价格与线路描述均引自官方公开数据。
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p class="copyright">
+        © {new Date().getFullYear()} FlyingBird (iflyingbird.sbs). All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-deep-indigo);
+    color: #A0AEC0;
+    padding: 4rem 0 2rem 0;
+    margin-top: auto;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .brand-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #CBD5E0;
+  }
+
+  .footer-heading {
+    color: #ffffff;
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .footer-links a {
+    color: #CBD5E0;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-sunset-orange);
+  }
+
+  .disclosure-text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #A0AEC0;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #718096;
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

@@ -1,0 +1,14 @@
+<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 18C10 10 20 6 32 8C26 16 20 28 8 28C6 24 4 20 4 18Z" fill="url(#fav-sky-grad-1)"/>
+  <path d="M12 16C16 12 24 10 32 8C28 16 22 22 14 22Z" fill="url(#fav-sky-grad-2)"/>
+  <defs>
+    <linearGradient id="fav-sky-grad-1" x1="4" y1="8" x2="32" y2="28" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E88A66"/>
+      <stop offset="1" stop-color="#845B9D"/>
+    </linearGradient>
+    <linearGradient id="fav-sky-grad-2" x1="12" y1="8" x2="32" y2="22" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#845B9D"/>
+      <stop offset="1" stop-color="#A7CEC8"/>
+    </linearGradient>
+  </defs>
+</svg>

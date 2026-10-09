@@ -1,0 +1,276 @@
+/* FLYINGBIRD SKYLINE Theme CSS */
+
+:root {
+  /* Color Palette */
+  --color-dawn-white: #FBF7EF;
+  --color-twilight-purple: #845B9D;
+  --color-sunset-orange: #E88A66;
+  --color-mint-green: #A7CEC8;
+  --color-deep-indigo: #25334A;
+  --color-soft-gray: #F3F1EE;
+  --color-body-dark: #283443;
+  --color-white: #FFFFFF;
+
+  /* Accent Gradients */
+  --skyline-hero-gradient: linear-gradient(135deg, #FBF7EF 0%, #F3F1EE 40%, rgba(232, 138, 102, 0.12) 75%, rgba(132, 91, 157, 0.12) 100%);
+  --skyline-card-gradient: linear-gradient(180deg, #FFFFFF 0%, #FBF7EF 100%);
+  --skyline-accent-gradient: linear-gradient(135deg, #E88A66 0%, #845B9D 100%);
+  --skyline-button-gradient: linear-gradient(135deg, #25334A 0%, #3D4F6E 100%);
+  --skyline-commercial-gradient: linear-gradient(135deg, #E88A66 0%, #D47450 100%);
+  --skyline-purple-glow: rgba(132, 91, 157, 0.15);
+  --skyline-orange-glow: rgba(232, 138, 102, 0.2);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+
+  /* Spacing */
+  --container-max-width: 1200px;
+  --header-height: 76px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(37, 51, 74, 0.04);
+  --shadow-md: 0 6px 20px rgba(37, 51, 74, 0.08);
+  --shadow-lg: 0 12px 36px rgba(37, 51, 74, 0.12);
+  --shadow-accent: 0 8px 24px rgba(232, 138, 102, 0.25);
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-dawn-white);
+  color: var(--color-body-dark);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-dawn-white);
+  color: var(--color-body-dark);
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--color-deep-indigo);
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-twilight-purple);
+}
+
+img, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Global Container */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-deep-indigo);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.text-gradient {
+  background: var(--skyline-accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--skyline-button-gradient);
+  color: var(--color-dawn-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-commercial {
+  background: var(--skyline-commercial-gradient);
+  color: #ffffff !important;
+  box-shadow: var(--shadow-accent);
+}
+
+.btn-commercial:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(232, 138, 102, 0.35);
+  opacity: 0.95;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--color-deep-indigo);
+  color: var(--color-deep-indigo);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-deep-indigo);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: rgba(132, 91, 157, 0.1);
+  color: var(--color-twilight-purple);
+  border: 1px solid rgba(132, 91, 157, 0.2);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-twilight-purple);
+  color: #ffffff;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: rgba(232, 138, 102, 0.15);
+  color: var(--color-sunset-orange);
+  border: 1px solid rgba(232, 138, 102, 0.3);
+}
+
+.badge-purple {
+  background: rgba(132, 91, 157, 0.12);
+  color: var(--color-twilight-purple);
+  border-color: rgba(132, 91, 157, 0.25);
+}
+
+.badge-mint {
+  background: rgba(167, 206, 200, 0.2);
+  color: #2F6B62;
+  border-color: rgba(167, 206, 200, 0.4);
+}
+
+/* Section Headings */
+.section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem auto;
+}
+
+.section-header h2 {
+  font-size: 2.25rem;
+  margin-bottom: 0.875rem;
+  letter-spacing: -0.02em;
+}
+
+.section-header p {
+  font-size: 1.125rem;
+  color: #536278;
+}
+
+/* Page Layout Wrappers */
+main {
+  flex: 1;
+}
+
+.page-hero {
+  background: var(--skyline-hero-gradient);
+  padding: 4rem 0 3rem 0;
+  border-bottom: 1px solid rgba(132, 91, 157, 0.08);
+}
+
+.page-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.page-hero p {
+  font-size: 1.15rem;
+  color: #536278;
+  max-width: 800px;
+}
+
+/* Cards */
+.skyline-card {
+  background: var(--color-white);
+  border: 1px solid rgba(37, 51, 74, 0.08);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.skyline-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(132, 91, 157, 0.2);
+}
+
+/* Responsiveness helper */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 64px;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem;
+  }
+
+  .section-header p {
+    font-size: 1rem;
+  }
+
+  .page-hero h1 {
+    font-size: 1.875rem;
+  }
+
+  .page-hero p {
+    font-size: 1rem;
+  }
+}

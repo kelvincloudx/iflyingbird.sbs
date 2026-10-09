@@ -1,0 +1,470 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import PlanCard from '../components/PlanCard.astro';
+import ExperienceSection from '../components/ExperienceSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import { plans, AFFILIATE_URL } from '../data/plans';
+import { regions } from '../data/nodes';
+import { stories } from '../data/stories';
+---
+
+<Layout 
+  title="FlyingBird飞鸟机场｜套餐价格、流量包及连接使用指南"
+  description="查看FlyingBird公开参考套餐，了解300GB月付方案、300GB与1000GB一次性流量包，以及客户端使用、网络连接和常见问题。"
+  canonicalPath="/"
+>
+  <!-- Hero Section -->
+  <Hero />
+
+  <!-- Brand Concept Gallery Section -->
+  <section class="concept-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-purple mb-3">FLYINGBIRD SKYLINE 叙事</span>
+        <h2>天际画廊 × 轻盈加速叙事</h2>
+        <p>不依赖噱头式虚构数据，以专业架构与透明规则打造值得信赖的跨国网络服务。</p>
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-card skyline-card">
+          <div class="concept-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3>大陆方向专线优化</h3>
+          <p>线路针对中国大陆主要运营商（电信、联通、移动）的骨干出口进行了持续路由收敛优化，降低跨国传输丢包率。</p>
+        </div>
+
+        <div class="concept-card skyline-card">
+          <div class="concept-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <h3>1000M 吞吐峰值</h3>
+          <p>节点硬件采用高规格带宽承载，最高可支持 1000M 带宽峰值，保障高清流媒体播放与大文件文件传输的高速体验。</p>
+        </div>
+
+        <div class="concept-card skyline-card">
+          <div class="concept-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3>双轨计费灵活选择</h3>
+          <p>打破单一订阅制壁垒，提供“按月自动刷新”与“流量不过期一次性包”两种双轨选型，让不同频次的用量需求皆有所依。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans 3-Column Parallel Matrix Section [ 1 - 2 - 3 ] -->
+  <section class="plans-section" id="plans">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge mb-3">公开参考套餐</span>
+        <h2>FlyingBird 双轨套餐价格表</h2>
+        <p>提供月度循环刷新订阅与不限时按量扣减流量包，三大核心方案并列横向展示。</p>
+      </div>
+
+      <!-- 3-Column Parallel Grid [ 1 - 2 - 3 ] -->
+      <div class="plans-grid-3col">
+        {plans.map((plan) => (
+          <PlanCard 
+            plan={plan} 
+            ctaText={plan.type === 'monthly' ? '立即开通月付' : '购买流量包'} 
+          />
+        ))}
+      </div>
+
+      <div class="plans-cta-box">
+        <p>需要前往官方选购控制台激活套餐服务？</p>
+        <a href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" class="btn btn-commercial">
+          前往购买页面
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nodes Knowledge Preview Section -->
+  <section class="nodes-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-purple mb-3">覆盖地区与线路</span>
+        <h2>FlyingBird 节点地区分布与网络知识</h2>
+        <p>公开参考页面提及的主要节点集群与线路特性，理性选择最适合您的网络节点。</p>
+      </div>
+
+      <div class="regions-grid">
+        {regions.map((region) => (
+          <div class="region-card skyline-card">
+            <div class="region-top">
+              <span class="region-flag">{region.flag}</span>
+              <h3 class="region-name">{region.name}</h3>
+              <span class="region-code">{region.code}</span>
+            </div>
+            <p class="region-feat"><strong>线路特性：</strong>{region.features}</p>
+            <p class="region-rec"><strong>推荐场景：</strong>{region.recommendedFor}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="/network/" class="btn btn-outline">
+          查看完整网络连接知识
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 Original Articles Section -->
+  <section class="articles-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge mb-3">原创知识与排查指南</span>
+        <h2> FlyingBird 专栏精选文章</h2>
+        <p>围绕流量机制、故障排查、客户端安全及设备配置展开的深度技术解析。</p>
+      </div>
+
+      <div class="stories-grid">
+        {stories.map((story) => (
+          <article class="story-card skyline-card">
+            <div class="story-meta">
+              <span class="story-cat">{story.category}</span>
+              <time datetime={story.publishDate}>{story.publishDate}</time>
+            </div>
+            <h3 class="story-title">
+              <a href={`/stories/${story.slug}/`}>{story.title}</a>
+            </h3>
+            <p class="story-summary">{story.summary}</p>
+            <div class="story-footer">
+              <span class="read-time">{story.readTime}</span>
+              <a href={`/stories/${story.slug}/`} class="story-link">
+                阅读全文 &rarr;
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="/stories/" class="btn btn-secondary">
+          浏览全部 7 篇文章
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Word-of-Mouth Experience Section (Section 9) -->
+  <ExperienceSection />
+
+  <!-- FAQ Section (Section 13) -->
+  <FaqSection />
+
+  <!-- Final Commercial Banner -->
+  <section class="cta-banner">
+    <div class="container cta-banner-inner">
+      <h2 class="cta-banner-title">准备好开启轻盈顺畅的数字旅程了吗？</h2>
+      <p class="cta-banner-desc">
+        立即体验 FlyingBird 优质节点线路，选择适合您的月度订阅或不限时流量包。
+      </p>
+      <div class="cta-banner-actions">
+        <a href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" class="btn btn-commercial btn-lg">
+          获取订阅方案
+        </a>
+        <a href="/guide/" class="btn btn-outline btn-lg cta-outline-white">
+          先看使用指南
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .mb-3 {
+    margin-bottom: 0.75rem;
+  }
+
+  .mt-4 {
+    margin-top: 2rem;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  /* Concept section */
+  .concept-section {
+    padding: 5rem 0;
+    background-color: var(--color-dawn-white);
+  }
+
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .concept-card {
+    padding: 2.25rem 1.75rem;
+  }
+
+  .concept-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: rgba(232, 138, 102, 0.12);
+    color: var(--color-sunset-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .concept-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .concept-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .concept-card p {
+    font-size: 0.95rem;
+    color: #4A5568;
+    line-height: 1.6;
+  }
+
+  /* Plans section: [ 1 - 2 - 3 ] Side-by-side Grid */
+  .plans-section {
+    padding: 5rem 0;
+    background: linear-gradient(180deg, #FBF7EF 0%, #F3F1EE 100%);
+  }
+
+  .plans-grid-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    margin-bottom: 3.5rem;
+    align-items: stretch;
+  }
+
+  .plans-cta-box {
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid rgba(132, 91, 157, 0.2);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .plans-cta-box p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-deep-indigo);
+  }
+
+  /* Nodes section */
+  .nodes-section {
+    padding: 5rem 0;
+    background-color: var(--color-dawn-white);
+  }
+
+  .regions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .region-card {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .region-top {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .region-flag {
+    font-size: 1.75rem;
+  }
+
+  .region-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .region-code {
+    margin-left: auto;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #718096;
+    background: rgba(37, 51, 74, 0.08);
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .region-feat, .region-rec {
+    font-size: 0.875rem;
+    color: #4A5568;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Stories section */
+  .articles-section {
+    padding: 5rem 0;
+    background: linear-gradient(180deg, #F3F1EE 0%, #FBF7EF 100%);
+  }
+
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .story-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem;
+  }
+
+  .story-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #718096;
+    margin-bottom: 0.75rem;
+  }
+
+  .story-cat {
+    color: var(--color-twilight-purple);
+    font-weight: 600;
+  }
+
+  .story-title {
+    font-size: 1.15rem;
+    line-height: 1.4;
+    margin-bottom: 0.85rem;
+  }
+
+  .story-title a {
+    color: var(--color-deep-indigo);
+  }
+
+  .story-title a:hover {
+    color: var(--color-sunset-orange);
+  }
+
+  .story-summary {
+    font-size: 0.9rem;
+    color: #4A5568;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex: 1;
+  }
+
+  .story-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(37, 51, 74, 0.08);
+    padding-top: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .read-time {
+    color: #718096;
+  }
+
+  .story-link {
+    font-weight: 600;
+    color: var(--color-twilight-purple);
+  }
+
+  /* CTA Banner */
+  .cta-banner {
+    background: var(--skyline-button-gradient);
+    color: #ffffff;
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  .cta-banner-title {
+    color: #ffffff;
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-banner-desc {
+    font-size: 1.15rem;
+    color: #CBD5E0;
+    max-width: 680px;
+    margin: 0 auto 2.25rem auto;
+  }
+
+  .cta-banner-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-lg {
+    padding: 0.95rem 2.25rem;
+    font-size: 1.1rem;
+  }
+
+  .cta-outline-white {
+    border-color: #ffffff;
+    color: #ffffff;
+  }
+
+  .cta-outline-white:hover {
+    background: #ffffff;
+    color: var(--color-deep-indigo);
+  }
+
+  @media (max-width: 1024px) {
+    .concept-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .plans-grid-3col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .regions-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stories-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .plans-grid-3col {
+      grid-template-columns: 1fr;
+    }
+
+    .regions-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-banner-title {
+      font-size: 1.75rem;
+    }
+  }
+</style>

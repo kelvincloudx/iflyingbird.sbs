@@ -1,0 +1,281 @@
+---
+import { AFFILIATE_URL } from '../data/plans';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const navItems = [
+  { label: '首页', href: '/' },
+  { label: '套餐', href: '/plans/' },
+  { label: '使用指南', href: '/guide/' },
+  { label: '客户端帮助', href: '/devices/' },
+  { label: '网络知识', href: '/network/' },
+  { label: '文章', href: '/stories/' },
+  { label: 'FAQ', href: '/faq/' }
+];
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <!-- Brand Logo -->
+    <a href="/" class="logo-brand" aria-label="FlyingBird 飞鸟机场首页">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 18C10 10 20 6 32 8C26 16 20 28 8 28C6 24 4 20 4 18Z" fill="url(#sky-grad-1)"/>
+        <path d="M12 16C16 12 24 10 32 8C28 16 22 22 14 22Z" fill="url(#sky-grad-2)"/>
+        <defs>
+          <linearGradient id="sky-grad-1" x1="4" y1="8" x2="32" y2="28" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#E88A66"/>
+            <stop offset="1" stop-color="#845B9D"/>
+          </linearGradient>
+          <linearGradient id="sky-grad-2" x1="12" y1="8" x2="32" y2="22" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#845B9D"/>
+            <stop offset="1" stop-color="#A7CEC8"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="logo-text">FlyingBird<span class="logo-sub">飞鸟机场</span></span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop" aria-label="Main Navigation">
+      <ul class="nav-list">
+        {navItems.map((item) => {
+          const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+          return (
+            <li>
+              <a href={item.href} class={`nav-link ${isActive ? 'active' : ''}`}>
+                {item.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <!-- Header Commercial CTA -->
+    <div class="header-actions">
+      <a 
+        href={AFFILIATE_URL} 
+        target="_blank" 
+        rel="sponsored nofollow noopener" 
+        class="btn btn-commercial btn-header"
+      >
+        立即注册
+      </a>
+      
+      <!-- Mobile Toggle Button -->
+      <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="切换菜单" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div class="nav-mobile" id="nav-mobile-menu">
+    <nav class="mobile-nav-list">
+      {navItems.map((item) => {
+        const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+        return (
+          <a href={item.href} class={`mobile-nav-link ${isActive ? 'active' : ''}`}>
+            {item.label}
+          </a>
+        );
+      })}
+      <div class="mobile-cta-wrapper">
+        <a 
+          href={AFFILIATE_URL} 
+          target="_blank" 
+          rel="sponsored nofollow noopener" 
+          class="btn btn-commercial mobile-cta"
+        >
+          立即注册
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: var(--header-height);
+    background: rgba(251, 247, 239, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(37, 51, 74, 0.08);
+    display: flex;
+    align-items: center;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logo-text {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-deep-indigo);
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+
+  .logo-sub {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-twilight-purple);
+  }
+
+  .nav-desktop {
+    display: block;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .nav-link {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4A5568;
+    padding: 0.5rem 0.25rem;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--color-twilight-purple);
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--skyline-accent-gradient);
+    border-radius: 2px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-header {
+    padding: 0.55rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1001;
+  }
+
+  .hamburger-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-deep-indigo);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-mobile {
+    display: none;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: var(--color-dawn-white);
+    border-bottom: 1px solid rgba(37, 51, 74, 0.1);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+  }
+
+  .nav-mobile.open {
+    display: block;
+  }
+
+  .mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mobile-nav-link {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-deep-indigo);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(37, 51, 74, 0.05);
+  }
+
+  .mobile-nav-link.active {
+    color: var(--color-twilight-purple);
+  }
+
+  .mobile-cta-wrapper {
+    margin-top: 1rem;
+  }
+
+  .mobile-cta {
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .nav-desktop {
+      display: none;
+    }
+
+    .mobile-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-toggle-btn');
+  const mobileMenu = document.getElementById('nav-mobile-menu');
+
+  if (toggleBtn && mobileMenu) {
+    toggleBtn.addEventListener('click', () => {
+      const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', (!isExpanded).toString());
+      mobileMenu.classList.toggle('open');
+    });
+  }
+</script>

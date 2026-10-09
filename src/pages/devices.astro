@@ -1,0 +1,251 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { AFFILIATE_URL } from '../data/plans';
+
+const platforms = [
+  {
+    id: 'windows',
+    name: 'Windows 桌面端',
+    icon: '💻',
+    recommendedApps: 'Clash Verge Rev / V2rayN / NekoBox',
+    features: ['支持系统代理自动写入', 'TUN 模式接管系统底层网络', '轻量高效，适合办公与游戏加速'],
+    guide: '下载安装后，复制 FlyingBird 官方控制台获取的订阅 URL，在客户端的“订阅/配置”中黏贴添加，右键勾选“系统代理”即可开启加速。'
+  },
+  {
+    id: 'mac',
+    name: 'macOS 苹果电脑',
+    icon: '🍎',
+    recommendedApps: 'ClashX Pro / Sing-Box / Surge',
+    features: ['完美适配 Apple Silicon M系列芯片', '增强模式（Enhanced Mode）静默分流', '菜单栏状态图标随心控制'],
+    guide: '解压应用并拖入 Application 文件夹，首次运行需授予网卡代理权限。导入 FlyingBird 订阅链接后，将运行模式设置为“Rule（规则模式）”。'
+  },
+  {
+    id: 'android',
+    name: 'Android 移动设备',
+    icon: '📱',
+    recommendedApps: 'Clash for Android / Surfboard / Flclash',
+    features: ['按应用分流（Split Tunneling）', '支持电池优化白名单保护', '快捷设置面板开关集成'],
+    guide: '安装 APK 后导入订阅 URL。为防止系统休眠断连，请进入系统设置将客户端加入“电池优化白名单”。具体操作请阅读《移动设备网络设置专题》。'
+  },
+  {
+    id: 'ios',
+    name: 'iOS / iPadOS 设备',
+    icon: '📲',
+    recommendedApps: 'Shadowrocket / Stash / Quantumult X',
+    features: ['系统级 VPN 架构无缝集成', '按需连接（On-Demand）自动响应', '低功耗后台保持'],
+    guide: '首次启动软件时允许添加 VPN 配置并进行指纹/面容解锁认证。通过扫码或复制订阅 URL 导入 FlyingBird 节点配置，开启“连接”开关即可。'
+  }
+];
+---
+
+<Layout 
+  title="FlyingBird 客户端帮助中心｜Windows, Mac, Android, iOS 设置指南"
+  description="获取FlyingBird在Windows、macOS、Android及iOS各大终端平台上的客户端配置教程、系统权限与后台保持指导。"
+  canonicalPath="/devices/"
+>
+  <div class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: '客户端帮助' }]} />
+      <h1>FlyingBird 多平台客户端帮助中心</h1>
+      <p>
+        全面支持主流移动与桌面操作系统。了解各平台的推荐客户端、系统权限授予及配置导入流程。
+      </p>
+    </div>
+  </div>
+
+  <section class="devices-section">
+    <div class="container">
+      <div class="platforms-grid">
+        {platforms.map((p) => (
+          <div class="platform-card skyline-card" id={p.id}>
+            <div class="platform-top">
+              <span class="platform-icon">{p.icon}</span>
+              <div>
+                <h2>{p.name}</h2>
+                <p class="apps-text"><strong>推荐应用：</strong>{p.recommendedApps}</p>
+              </div>
+            </div>
+
+            <div class="platform-features">
+              <h4>平台特性与功能支持：</h4>
+              <ul>
+                {p.features.map((feat) => (
+                  <li>{feat}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="platform-guide">
+              <h4>配置使用指引：</h4>
+              <p>{p.guide}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Related articles callout -->
+      <div class="related-docs skyline-card">
+        <h3>深入技术专题与安全警示</h3>
+        <div class="docs-links-grid">
+          <a href="/stories/mobile-settings/" class="doc-link-item">
+            <h4>移动设备网络设置专题 &rarr;</h4>
+            <p>了解 iOS 与 Android 的后台运行权限、电池优化白名单及 Wi-Fi / 5G 切换无缝恢复。</p>
+          </a>
+          <a href="/stories/credential-safety/" class="doc-link-item">
+            <h4>订阅配置安全指南 &rarr;</h4>
+            <p>学习如何妥善保护个人的订阅 URL 凭证与二维码，防止账号流量被盗刷。</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="cta-box text-center">
+        <p>已经准备好客户端？立即获取专属订阅链接</p>
+        <a href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" class="btn btn-commercial">
+          获取订阅方案
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .text-center {
+    text-align: center;
+  }
+
+  .devices-section {
+    padding: 4rem 0;
+    background-color: var(--color-dawn-white);
+  }
+
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .platform-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2.25rem;
+  }
+
+  .platform-top {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(37, 51, 74, 0.08);
+  }
+
+  .platform-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .platform-top h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .apps-text {
+    font-size: 0.875rem;
+    color: var(--color-twilight-purple);
+  }
+
+  .platform-features, .platform-guide {
+    margin-bottom: 1.25rem;
+  }
+
+  .platform-features h4, .platform-guide h4 {
+    font-size: 0.95rem;
+    color: var(--color-deep-indigo);
+    margin-bottom: 0.5rem;
+  }
+
+  .platform-features ul {
+    padding-left: 1.25rem;
+    font-size: 0.9rem;
+    color: #4A5568;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .platform-guide p {
+    font-size: 0.9rem;
+    color: #4A5568;
+    line-height: 1.6;
+  }
+
+  /* Related docs */
+  .related-docs {
+    margin-bottom: 3.5rem;
+    background: #ffffff;
+    border: 1px solid rgba(132, 91, 157, 0.2);
+  }
+
+  .related-docs h3 {
+    font-size: 1.35rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .docs-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .doc-link-item {
+    display: block;
+    background: var(--color-dawn-white);
+    padding: 1.25rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(37, 51, 74, 0.08);
+    transition: transform 0.2s;
+  }
+
+  .doc-link-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-twilight-purple);
+  }
+
+  .doc-link-item h4 {
+    font-size: 1.05rem;
+    color: var(--color-deep-indigo);
+    margin-bottom: 0.4rem;
+  }
+
+  .doc-link-item p {
+    font-size: 0.875rem;
+    color: #718096;
+    line-height: 1.5;
+  }
+
+  .cta-box {
+    background: var(--skyline-card-gradient);
+    border: 1px solid rgba(37, 51, 74, 0.1);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .cta-box p {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-deep-indigo);
+    margin-bottom: 1.25rem;
+  }
+
+  @media (max-width: 900px) {
+    .platforms-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .docs-links-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

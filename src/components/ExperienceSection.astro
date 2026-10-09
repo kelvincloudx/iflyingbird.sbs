@@ -1,0 +1,136 @@
+---
+const experiences = [
+  {
+    icon: `M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z`,
+    title: '长时间连接连续性',
+    subtitle: '视频会议与远程会话',
+    desc: '聚焦跨国 Zoom/Teams 视频会议、远程桌面办公与在线网页会话。通过优化节点调优与高可用连接保持，减少瞬时网络抖动导致的掉线困扰。'
+  },
+  {
+    icon: `M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z`,
+    title: '多元化流量配额管理',
+    subtitle: '月付与无到期流量包',
+    desc: '满足不同用户的用量节奏。既支持按月重置的高频办公月付方案，也提供流量不过期的一次性流量包，让每一兆流量都物尽其用。'
+  },
+  {
+    icon: `M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z`,
+    title: '移动端多网络自适应',
+    subtitle: '手机与平板无缝切换',
+    desc: '针对 iOS 与 Android 平台的休眠机制与网卡权限提供专业适配建议，实现在 Wi-Fi 与 5G 移动数据环境间切换时的稳定恢复。'
+  },
+  {
+    icon: `M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z`,
+    title: '订阅配置安全防护',
+    subtitle: '凭证保护与配置管理',
+    desc: '强调个人订阅 URL 与加密配置的安全隔离，引导用户遵循正规客户端导入流程，防范凭证泄露与异常盗刷风险。'
+  }
+];
+---
+
+<section class="experience-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple mb-3">连接体验全景</span>
+      <h2>FlyingBird 用户关注的连接体验</h2>
+      <p>从连续办公到移动设备使用，了解影响日常网络体验的关键因素。</p>
+    </div>
+
+    <div class="experience-grid">
+      {experiences.map((exp) => (
+        <div class="exp-card skyline-card">
+          <div class="exp-icon-box">
+            <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d={exp.icon} />
+            </svg>
+          </div>
+          <h3 class="exp-title">{exp.title}</h3>
+          <span class="exp-sub">{exp.subtitle}</span>
+          <p class="exp-desc">{exp.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience-section {
+    background: linear-gradient(180deg, var(--color-dawn-white) 0%, rgba(132, 91, 157, 0.05) 50%, var(--color-dawn-white) 100%);
+    padding: 5rem 0;
+  }
+
+  .mb-3 {
+    margin-bottom: 0.75rem;
+  }
+
+  .experience-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.75rem;
+  }
+
+  .exp-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem 1.5rem;
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(37, 51, 74, 0.08);
+    transition: all 0.3s ease;
+  }
+
+  .exp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(232, 138, 102, 0.3);
+  }
+
+  .exp-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: rgba(132, 91, 157, 0.1);
+    color: var(--color-twilight-purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .exp-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .exp-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-deep-indigo);
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-sub {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: var(--color-sunset-orange);
+    margin-bottom: 0.85rem;
+  }
+
+  .exp-desc {
+    font-size: 0.9rem;
+    color: #4A5568;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1024px) {
+    .experience-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .experience-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { AFFILIATE_URL } from '../data/plans';
+---
+
+<Layout 
+  title="FlyingBird 飞鸟机场使用指南｜从零配置到跨国加速上手教程"
+  description="FlyingBird新手入门使用指南，包含账户注册、订阅地址导入、客户端模式选择及网络连接排查全流程指导。"
+  canonicalPath="/guide/"
+>
+  <div class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: '使用指南' }]} />
+      <h1>FlyingBird 飞鸟机场全流程使用指南</h1>
+      <p>
+        从零开始学习如何注册账号、获取专属订阅链接、配置主流客户端以及进行日常网络维护。
+      </p>
+    </div>
+  </div>
+
+  <section class="guide-content-section">
+    <div class="container">
+      <div class="guide-steps-grid">
+        <!-- Step 1 -->
+        <article class="step-card skyline-card">
+          <div class="step-number">01</div>
+          <div class="step-body">
+            <h2>注册账户与选择参考套餐</h2>
+            <p>
+              访问 FlyingBird 唯一指定注册页面，填写电子邮箱与密码完成账户注册。在控制台中，您可以根据自身的实际用量习惯选择适用的套餐方案：
+            </p>
+            <ul>
+              <li><strong>高频日常使用：</strong>推荐选择 <a href="/plans/">月付 300GB 套餐（¥15/月）</a>，享受按月刷新的独立流量分配。</li>
+              <li><strong>轻度或备用需求：</strong>推荐选择 <a href="/plans/">300GB（¥25）或 1000GB（¥60）一次性流量包</a>，流量不过期，用完即止。</li>
+            </ul>
+            <div class="step-action">
+              <a href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" class="btn btn-commercial">
+                立即注册并开通服务
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Step 2 -->
+        <article class="step-card skyline-card">
+          <div class="step-number">02</div>
+          <div class="step-body">
+            <h2>获取专属订阅链接 (Subscription URL)</h2>
+            <p>
+              在 FlyingBird 账户控制台中，找到“订阅管理”模块。系统会为您生成一串包含加密凭证的专属订阅 URL，或提供可直接扫描的动态二维码。
+            </p>
+            <div class="notice-callout">
+              <strong>安全警示：</strong>订阅链接是您个人套餐信息的凭证，切勿将其公开在社交群组或论坛中。如怀疑泄露，请参阅 <a href="/stories/credential-safety/">订阅配置安全指南</a> 及时重置。
+            </div>
+          </div>
+        </article>
+
+        <!-- Step 3 -->
+        <article class="step-card skyline-card">
+          <div class="step-number">03</div>
+          <div class="step-body">
+            <h2>下载与配置代理客户端</h2>
+            <p>
+              根据您所使用的设备操作系统，选择受信任的原生代理客户端进行配置：
+            </p>
+            <div class="device-chips">
+              <span class="chip">Windows: Clash / V2rayN</span>
+              <span class="chip">macOS: ClashX / Sing-Box</span>
+              <span class="chip">Android: Clash for Android / Surfboard</span>
+              <span class="chip">iOS: Shadowrocket / Stash</span>
+            </div>
+            <p>
+              在客户端中选择“配置导入” -> “粘贴订阅 URL”，点击确认更新后，系统会自动下载最新的优化节点列表。详细的移动端后台运行与权限设置，请阅读 <a href="/devices/">客户端帮助中心</a>。
+            </p>
+          </div>
+        </article>
+
+        <!-- Step 4 -->
+        <article class="step-card skyline-card">
+          <div class="step-number">04</div>
+          <div class="step-body">
+            <h2>选择代理模式与连接测试</h2>
+            <p>
+              在客户端主界面中，推荐将代理模式设置为“<strong>规则模式（Rule Mode）</strong>”。在此模式下：
+            </p>
+            <ul>
+              <li>访问国内网站自动直连，不消耗 FlyingBird 套餐流量；</li>
+              <li>访问海外目标站点自动通过 FlyingBird 中国大陆优化线路加速。</li>
+            </ul>
+            <p>
+              勾选开启“系统代理（System Proxy）”开关后即可正常上网。如需了解延迟与测速原理，请参阅 <a href="/stories/node-checks/">节点健康检查指南</a>。
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Quick trouble links -->
+      <div class="guide-faq-banner skyline-card">
+        <div class="banner-text">
+          <h3>遇到无法联网或连接中断？</h3>
+          <p>请按照我们的标准化四步路线进行诊断，或查阅常见问题解答。</p>
+        </div>
+        <div class="banner-links">
+          <a href="/stories/connection-recovery/" class="btn btn-outline">
+            新用户排查路线
+          </a>
+          <a href="/faq/" class="btn btn-secondary">
+            常见问题 FAQ
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .guide-content-section {
+    padding: 4rem 0;
+    background-color: var(--color-dawn-white);
+  }
+
+  .guide-steps-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .step-card {
+    display: flex;
+    gap: 2rem;
+    padding: 2.5rem;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-sunset-orange);
+    line-height: 1;
+    background: rgba(232, 138, 102, 0.12);
+    width: 68px;
+    height: 68px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-body {
+    flex: 1;
+  }
+
+  .step-body h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .step-body p {
+    font-size: 1rem;
+    color: #4A5568;
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .step-body ul {
+    padding-left: 1.25rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #4A5568;
+  }
+
+  .step-action {
+    margin-top: 1.25rem;
+  }
+
+  .notice-callout {
+    background: rgba(132, 91, 157, 0.08);
+    border-left: 4px solid var(--color-twilight-purple);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.925rem;
+    color: var(--color-deep-indigo);
+    margin-top: 1rem;
+  }
+
+  .device-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 1rem 0;
+  }
+
+  .chip {
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(37, 51, 74, 0.06);
+    color: var(--color-deep-indigo);
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+  }
+
+  .guide-faq-banner {
+    max-width: 960px;
+    margin: 4rem auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #F8F6F0 100%);
+    border: 1px solid rgba(132, 91, 157, 0.2);
+    padding: 2.25rem;
+  }
+
+  .banner-text h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .banner-text p {
+    color: #718096;
+    font-size: 0.95rem;
+  }
+
+  .banner-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .step-card {
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 1.75rem;
+    }
+
+    .guide-faq-banner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

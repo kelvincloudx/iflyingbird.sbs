@@ -1,0 +1,203 @@
+---
+import { Plan, AFFILIATE_URL } from '../data/plans';
+
+interface Props {
+  plan: Plan;
+  ctaText?: string;
+}
+
+const { plan, ctaText = '立即订阅' } = Astro.props;
+---
+
+<div class={`plan-card skyline-card ${plan.popular ? 'popular-card' : ''}`}>
+  {plan.badge && (
+    <div class="plan-badge-wrapper">
+      <span class={`badge ${plan.type === 'monthly' ? 'badge-purple' : 'badge-mint'}`}>
+        {plan.badge}
+      </span>
+    </div>
+  )}
+
+  <div class="plan-header">
+    <h3 class="plan-name">{plan.name}</h3>
+    <div class="plan-price-box">
+      <span class="currency">¥</span>
+      <span class="price-val">{plan.price}</span>
+      <span class="unit">{plan.type === 'monthly' ? '/ 月' : '/ 次'}</span>
+    </div>
+    <div class="plan-meta-pills">
+      <span class="pill pill-traffic">{plan.traffic}</span>
+      <span class="pill pill-cycle">{plan.cycle}</span>
+    </div>
+  </div>
+
+  <div class="plan-body">
+    <ul class="feature-list">
+      {plan.features.map((feature) => (
+        <li class="feature-item">
+          <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+          </svg>
+          <span>{feature}</span>
+        </li>
+      ))}
+    </ul>
+
+    {plan.note && (
+      <p class="plan-note">{plan.note}</p>
+    )}
+  </div>
+
+  <div class="plan-footer">
+    <a 
+      href={AFFILIATE_URL} 
+      target="_blank" 
+      rel="sponsored nofollow noopener" 
+      class={`btn ${plan.popular ? 'btn-commercial' : 'btn-primary'} plan-btn`}
+    >
+      {ctaText}
+    </a>
+  </div>
+</div>
+
+<style>
+  .plan-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    border-radius: var(--radius-lg);
+    background: var(--color-white);
+    border: 1px solid rgba(37, 51, 74, 0.1);
+    padding: 2.25rem 1.75rem;
+    transition: all 0.3s ease;
+  }
+
+  .popular-card {
+    border: 2px solid var(--color-twilight-purple);
+    box-shadow: 0 10px 30px rgba(132, 91, 157, 0.15);
+  }
+
+  .popular-card::before {
+    content: '热门推荐';
+    position: absolute;
+    top: -14px;
+    right: 20px;
+    background: var(--skyline-accent-gradient);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.85rem;
+    border-radius: var(--radius-full);
+    letter-spacing: 0.05em;
+  }
+
+  .plan-badge-wrapper {
+    margin-bottom: 0.75rem;
+  }
+
+  .plan-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-deep-indigo);
+    margin-bottom: 0.75rem;
+  }
+
+  .plan-price-box {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .currency {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-deep-indigo);
+  }
+
+  .price-val {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--color-deep-indigo);
+    letter-spacing: -0.03em;
+  }
+
+  .unit {
+    font-size: 1rem;
+    color: #718096;
+    font-weight: 600;
+  }
+
+  .plan-meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed rgba(37, 51, 74, 0.12);
+  }
+
+  .pill {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .pill-traffic {
+    background-color: rgba(37, 51, 74, 0.06);
+    color: var(--color-deep-indigo);
+  }
+
+  .pill-cycle {
+    background-color: rgba(132, 91, 157, 0.08);
+    color: var(--color-twilight-purple);
+  }
+
+  .plan-body {
+    flex: 1;
+    margin-bottom: 2rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.95rem;
+    color: #4A5568;
+    line-height: 1.5;
+  }
+
+  .check-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--color-twilight-purple);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .plan-note {
+    margin-top: 1.25rem;
+    font-size: 0.825rem;
+    color: #718096;
+    background-color: var(--color-dawn-white);
+    padding: 0.65rem 0.85rem;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--color-mint-green);
+  }
+
+  .plan-btn {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 1.05rem;
+  }
+</style>

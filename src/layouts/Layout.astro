@@ -1,0 +1,70 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  ogType?: string;
+  jsonLd?: object;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  ogType = 'website',
+  jsonLd
+} = Astro.props;
+
+const siteUrl = 'https://iflyingbird.sbs';
+const fullCanonical = `${siteUrl}${canonicalPath.endsWith('/') ? canonicalPath : canonicalPath + '/'}`;
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  'name': 'FlyingBird 飞鸟机场',
+  'alternateName': 'FlyingBird',
+  'url': siteUrl,
+  'description': 'FlyingBird飞鸟机场官方落地页，提供月付套餐、一次性流量包及网络加速连接指南。'
+};
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={fullCanonical} />
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:site_name" content="FlyingBird 飞鸟机场" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={fullCanonical} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="zh_CN" />
+
+    <!-- Favicon SVG -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- WebSite Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+  </head>
+  <body>
+    <Header currentPath={Astro.url.pathname} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
